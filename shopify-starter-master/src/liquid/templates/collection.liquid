@@ -1,0 +1,113 @@
+{% section 'hero-collection' %}
+<section class="products-collection">
+  <div class="container">
+    {% paginate collection.products by 8 %}
+        {% for product in collection.products %}
+          {% cycle '<div class="grid product-grid">', '', '', '' %}
+           {% include 'product-thumbnail' %}
+           {% cycle '', '', '','<div class="tab-content"></div>' %}
+          {% cycle '', '', '', '</div>' %}
+       {% endfor %}
+     
+      
+    {% endpaginate %}
+  </div>
+  </div>
+
+
+  <script>
+
+    var cart = [ {{ cart | json }} ];
+    console.log(cart);
+
+    //Start Get Products data IN JOSN DATA
+    var products = [
+      {% for product in collection.products %}
+            {{ product | json }},
+        {% endfor %}
+    ]
+
+    console.log(products);
+    //End Get Products data IN JOSN DATA
+
+    function handle(event) {
+
+      var grandparent = this.closest('.product-grid');
+      var parent = this.closest('.product-thumbnail');
+      var ind = Number(this.dataset.index);
+      var id = Number(this.dataset.id);
+      
+      var product = products.find(x => x.id === id);
+     
+
+      //Start Add and Remove class from parent siblings to show and hide arrow 
+      var parentSibs = document.querySelectorAll(' .product-thumbnail');
+      parentSibs.forEach((item) => {
+        item.classList.remove('active');
+      });
+      parent.classList.add('active');
+      //ENd Add and Remove class from parent siblings to show and hide arrow 
+
+      //Remove inner Html from rest of all tab content
+      var allLastElements = document.querySelectorAll('.tab-content');
+      allLastElements.forEach((item) => {
+        item.innerHTML = "";
+      });
+      //Remove inner Html from rest of all tab content
+     
+      //Convert Paise into Rupees 
+      var convertIntoMoney = Number(product.price) / 100; 
+      //Convert Paise into Rupees 
+
+      var createElement = `
+      <div class="product__wrapper">
+        <svg id="close" width="30px" height="30px" class="close" width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>close</title> <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square"><g transform="translate(-329.000000, -33.000000)" stroke="#092DC5" stroke-width="2" data-v-2b320538=""><g transform="translate(336.000000, 39.500000) rotate(-315.000000) translate(-336.000000, -39.500000) translate(329.000000, 32.000000)"><path d="M6.72914789,0.860595703 L6.72914789,14.1394043" transform="translate(6.729148, 7.500000) rotate(-90.000000) translate(-6.729148, -7.500000) " ></path> <path d="M6.75641026,0.833333333 L6.75641026,14.1121419"></path></g></g></g></svg>
+        <div class="product__slider">
+            <a href="/products/${product.handle}">
+                <img src="${product.featured_image}" class="image" />
+            </a>
+        </div>
+        <div class="product__details">
+                <div class="product__info">
+                    <h4 class="product__title">${product.title}</h4>
+                    <h4 class="product__price">Rs.${convertIntoMoney}</h4>
+                    
+                    <h4 class="compare__price product__price">Rs.${Number(product.compare_at_price) / 100 }</h4>
+                    <ul class="variants__list">
+                      
+                    </ul>
+                </div>
+                <div class="product__form">
+                    <form class="product-form" action="/cart/add">
+                      <input type="hidden" name="id" value="${product.variants[0].id}" />
+                      <input id="" type="submit" value="Buy Now" class="btn btn--dark btn--sm" />
+                    </form>
+                    <div class="addToCart">
+                        <button type="button" data-cart-add="${product.variants[0].id}" class="btn btn-primary" id="addToCart">Add to Cart </button>
+                    </div>
+                    <a href="/products/${product.handle}">View Product</a>
+                </div>
+         </div>
+         </div>
+      `
+
+      grandparent.lastElementChild.innerHTML = createElement;
+      
+      close = document.getElementById('close');
+      console.log(close);  
+      close.addEventListener('click', function(){
+        this.closest('.tab-content').innerHTML = "";
+        parentSibs.forEach((item) => {
+          item.classList.remove('active');
+        });
+      })
+    } 
+    
+    var productElems = document.querySelectorAll('.product-image');
+    productElems.forEach((btn) => {
+        btn.addEventListener('click', handle );
+    });
+
+    
+
+</script>

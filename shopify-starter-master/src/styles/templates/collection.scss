@@ -1,0 +1,159 @@
+/*
+ * Import style components for the current template.
+ *
+ * Write your own styles after imports.
+ *
+ * Design tokens are required and encapsulated for each template.
+ * Import it from the design-tokens folder.
+ */
+
+// Design tokens
+@import "./src/design-tokens/index";
+
+// Shared components
+@import './src/styles/components/shared/hero';
+@import "./src/styles/components/shared/collection-pagination";
+
+
+
+.cover{
+  position: relative;
+  .cover__content{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h1{
+      color: #fff;
+    }
+  }
+}
+
+.products-collection {
+  padding-top: 4rem;
+}
+
+.product-grid {
+  display: grid;
+  display: -ms-grid;
+
+  @include grid-columns(size('gutter'), 1fr 1fr 1fr 1fr);
+  @include grid-rows(size('gutter'), auto);
+  @include grid-autoflow((autoflow: row, columns: 2, rows: 6, gap: both));
+
+  @include below('tablet') {
+    @include grid-columns(size('gutter'), 1fr);
+    @include grid-autoflow((autoflow: row, columns: 1, rows: 6, gap: both));
+  }
+}
+
+.product-thumbnail {
+  // @include padding(size('gutter'), null, null, null);
+  padding: size('gutter');
+  position: relative;
+  &.active:after {
+    content: " ";
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    bottom: -30px;
+    border-left: 1px solid #ececec;
+    background: #fff;
+    transform: rotate(45deg);
+    left: calc(50% - 15px);
+    border-top: 1px solid #ececec;
+    z-index: 9;
+  }
+  .product-image {
+    display: block;
+    .image {
+      width: 100%;
+    }
+  }
+
+  .product-title {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    a {
+      color: color('text');
+      text-decoration: none;
+
+      @include above('tablet-large') {
+        font-size: 1.2rem;
+        line-height: 1.5rem;
+      }
+    }
+  }
+
+  .product-price {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    .sale-price,
+    .regular-price {
+      font-weight: 600;
+    }
+    .regular-price {
+      color: color('red');
+      text-decoration: line-through;
+    }
+    a {
+      color: color('text');
+      text-decoration: none;
+    }
+  }
+}
+
+.tab-content{
+grid-column-start: 1;
+grid-column-end: 5;
+}
+.product__wrapper {
+  padding: 20px;
+  display: grid;
+  grid-template-rows: aut0;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 30px;
+  border: 1px solid #ececec;
+  margin-bottom: 40px;
+  position: relative;
+  .close{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    
+    path{
+      fill: #000;
+      stroke: #000;
+    }
+    
+  }
+  img{
+    width: 100%;
+  }
+}
+.product__details {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .addToCart{
+    margin-bottom: 20px;
+  }
+}
+.product__title {
+  font-size: 2em;
+  font-weight: 600;
+}
+.product__price{
+  font-size: 1.8em;
+  &.compare__price{
+    font-size: 1.5em;
+    color: red;
+    text-decoration: line-through ;
+  }
+} 

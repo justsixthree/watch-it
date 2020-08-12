@@ -1,0 +1,138 @@
+/*
+ * Import style components for the current template.
+ *
+ * Write your own styles after imports.
+ *
+ * Design tokens are required and encapsulated for each template.
+ * Import it from the design-tokens folder.
+ */
+
+// Design tokens
+@import "./src/design-tokens/index";
+
+.product-holder {
+  padding-top: 4rem;
+  display: grid;
+  display: -ms-grid;
+
+  @include grid-columns(size('gutter'), 1fr 1fr);
+  @include grid-rows(size('gutter'), auto);
+  @include grid-autoflow((autoflow: row, columns: 2, rows: 1, gap: both));
+
+  @include below('tablet') {
+    @include grid-columns(size('gutter'), 1fr);
+    @include grid-autoflow((autoflow: row, columns: 1, rows: 1, gap: both));
+  }
+}
+
+.product-photo {
+  width: 100%;
+}
+
+.product-description {
+  padding-left: 2rem;
+
+  h1 {
+    font-weight: 200;
+  }
+
+  .type,
+  .vendor {
+    @include margin(null, null, 0.5rem, null);
+
+    font-size: 0.9rem;
+    span {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .description {
+    @include margin(1rem, null, 1rem, null);
+  }
+
+  .label {
+    font-weight: 500;
+  }
+
+  .form-control {
+    max-width: 350px;
+  }
+}
+
+// Plus-Minus Component
+.number-counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  margin-bottom: 50px;
+  border: 1px solid color('light-grey');
+  input[type="number"] {
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+    text-align: center;
+    width: 50%;
+    height: 30px;
+  }
+  input[type="button"] {
+    padding: 0;
+    width: 25%;
+    height: 30px;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+.variants{
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+}
+.variant{
+  position: relative;
+  width: 50px;
+  height: 50px;
+  margin: 0 10px 10px 0;
+  
+  img{
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 4px;
+  }
+  input{
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    opacity: 0;
+    &:checked + img{
+      border: 2px solid #000;
+      transform: scale(1.2);
+    }
+  }
+}
+.variant__content{
+    opacity: 0;
+    visibility: hidden;
+    min-width: 120px;
+    font-size: 12px;
+    background: #fff;
+    padding: 5px;
+    border: 1px solid #ccc;
+    z-index: 4;
+    top: calc(-100% - 10px);
+    position: absolute;
+  .variant:hover & {
+    opacity: 1;
+    visibility: visible;
+  }
+  span{
+    display: block;
+  }
+}

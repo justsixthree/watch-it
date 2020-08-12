@@ -1,0 +1,91 @@
+/// @access private
+/// @link https://www.oddbird.net/accoutrement/docs/type.html
+
+/// Defined fonts
+$fonts: (
+  'sans': (
+    'name': 'Josefin',
+    'formats': 'woff2',
+    'stack': (
+      'sans-serif'
+    ),
+    'normal': '~assets/fonts/JosefinSans-Regular',
+    '300': 'JosefinSans-Thin',
+    '500': 'JosefinSans-Medium',
+    '600': 'JosefinSans-SemiBold',
+    '700': 'JosefinSans-Bold',
+   
+  ),
+  'primary': '#sans',
+);
+ // Import all local fonts
+ @include import-webfonts;
+ 
+$typography: (
+  'body': (
+    'font': '#primary',
+    'size': size('text'),
+    'height': 1,
+    'weight': normal,
+    'space': 0.5px
+  ),
+  'heading': (
+    'font': '#primary',
+    'weight': 400,
+  ),
+  'heading-1': (
+    'size': size('h1')
+  ),
+  'heading-2': (
+    'size': size('h2')
+  ),
+  'heading-3': (
+    'size': size('h3')
+  ),
+  'heading-4': (
+    'size': size('h4')
+  ),
+  'paragraph': (
+    'size': size('text'),
+    'height': 1.5
+  ),
+  'buttons': (
+    'size': size('text'),
+    'height': 1.5,
+    'weight': 600,
+  ),
+  'button-primary': (),
+  'button-secondary': (),
+  'navigation': (
+    'size': 12px,
+    'weight': 700,
+    'space': 1px
+  )
+);
+
+/// Set text style.
+/// @param {string} $token - One of keys of $typography map above.
+
+@mixin use-text-style($token: 'body') {
+  $type: get-token($typography, $token);
+
+  @if (get-token($type, 'font') != 'font') {
+    font-family: font-family(get-token($type, 'font'));
+  }
+
+  @if (get-token($type, 'size') != 'size') {
+    font-size: get-token($type, 'size');
+  }
+
+  @if (get-token($type, 'weight') != 'weight') {
+    font-weight: get-token($type, 'weight');
+  }
+
+  @if (get-token($type, 'height') != 'height') {
+    line-height: get-token($type, 'height');
+  }
+
+  @if (get-token($type, 'spacing') != 'spacing') {
+    letter-spacing: get-token($type, 'spacing') * 1rem / 10;
+  }
+}

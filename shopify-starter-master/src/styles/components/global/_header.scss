@@ -1,0 +1,23 @@
+@import 'header-login';
+@import 'navigation';
+
+.header {
+  @include padding(1rem, null, 1rem, null);
+
+  background-color: white;
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    align-items: center;
+  }
+  .template-index  &{
+    position: relative;
+    width: 100%;
+  }
+}
+.logo{
+  text-align: center;
+}
+

@@ -1,0 +1,26 @@
+<div class="header-login">
+  <a href="javascript:void(0);" class="login-item search">
+    {% include 'icon-search-header' %}
+  </a>  
+  {% if shop.customer_accounts_enabled %}
+    {% if customer %}
+      <a href="/account" class="login-item">
+        {% include 'icon-user' %}
+      </a>
+    {% else %}
+      <a href="/account/login" class="login-item">
+        {% include 'icon-user' %}
+        <div class="label">{{ 'layout.customer.log_in' | t }}</div>
+      </a>
+    {% endif %}   
+  {% endif %}    
+  <a href="/cart" class="login-item basket">
+    {% if cart.item_count > 0 %}
+      <div class="count">{{ cart.item_count }}</div>
+    {% endif %}
+    {% include 'icon-shopping-basket' %}
+  </a> 
+  <a href="javascript:void(0);" class="login-item mobile-menu nav-trigger">
+    <span></span>
+  </a>
+</div>

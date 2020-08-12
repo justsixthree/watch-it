@@ -1,0 +1,82 @@
+{%- comment -%}
+This is a required section for the Shopify Theme Store.
+It is available in the "Footer" section in the theme editor.
+
+Theme Store required settings:
+
+
+Theme Store optional settings:
+
+{%- endcomment -%}
+
+<footer class="footer">
+
+  <div class="container">
+    <div class="grid">
+      <div class="col">
+        <div class="footer__logo">
+          {% include 'logo-icon' , icon_color: '#ffffff', icon_height: '50', icon_width: '200' %}
+        </div>
+        <ul class="footer__social">
+          <li>
+            <a href="https://www.instagram.com/">
+              <img src="//cdn.shopify.com/s/files/1/0816/7567/t/9/assets/social-instagram--white.svg?v=18375624421873757890" alt="Watch It Facebook">
+            </a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/">
+              <img src="//cdn.shopify.com/s/files/1/0816/7567/t/9/assets/social-facebook--white.svg?v=15149714888389215702" alt="Watch It Instagram">
+            </a>
+          </li>
+          <li>
+            <a href="https://www.pinterest.com/">
+              <img src="//cdn.shopify.com/s/files/1/0816/7567/t/9/assets/social-pinterest--white.svg?v=7768196259799593416" alt="Watch It Pinterest">
+            </a>
+          </li>
+        </ul>    
+      </div>
+      <div class="col">
+          {%- assign footer_linklist = section.settings.footer_linklist -%}
+          {% if linklists[footer_linklist].links.size > 0 %}
+              <ul class="footer-nav">
+                {% for link in linklists[footer_linklist].links %}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {% endfor %}
+              </ul>
+          {% endif %}
+      </div>
+      <div class="col">
+        <div class="footer__tagline">
+          <h3>Simplicity is the keynote of all true elegance.</h3>
+        </div>
+      </div>
+      <div class="col">
+        <div class="copyrights">
+          <small>Copyright &copy; {{ 'now' | date: "%Y" }} {{ shop.name | link_to: '/' }}. All rights reserved.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</footer>
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "footer_linklist",
+        "label": "First menu",
+        "default": "footer"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_payment_icons",
+        "label": "Show payment icons",
+        "default": false
+      }
+    ]
+  }
+
+{% endschema %}

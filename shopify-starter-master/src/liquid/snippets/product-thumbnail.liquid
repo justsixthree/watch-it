@@ -1,0 +1,19 @@
+<div class="product-thumbnail" data-handle="{{ product.handle }}">
+      {% if product.featured_image != blank %}
+      <a data-id="{{ product.id }}" data-handle="{{ product.handle }}" class="product-image">
+        {% include 'responsive-image' with image: product.featured_image, max_width: 767, max_height: 767 %}
+      </a>
+    {% endif %}
+    <div class="product-info">
+        <div class="product-title">
+          <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+        </div>               
+        <div class="product-price">
+          <span>{{ product.price | money }}</span>
+        </div>
+     
+    </div>
+  </div>
+
+  
+  

@@ -1,0 +1,72 @@
+// Link to source
+/// @link https://www.oddbird.net/accoutrement/docs/color.html
+
+// *** Color palette *** //
+
+$colors: (
+  // Set explicit colors
+  'grey': #808080,
+  'blue': #006FBB,
+  'orange': #F49342,
+  'red': #c8102e,
+  'green': #22ca82,
+  'sand': #fbede1,
+  //Lighter
+  'white': #ffffff,
+  'light-grey': #D3D3D3,
+  'light-blue': #0689e2,
+  'light-orange': #fda357,
+  'light-red': #ea6868,
+  'light-green': #50B83C,
+  //Darker
+  'black': #000000,
+  'dark-grey': #222222,
+  'dark-blue': #084E8A,
+  'dark-orange': #C05717,
+  'dark-red': #BF0711,
+  'dark-green': #108043
+);
+
+// Use color names that define the purpose of the color.
+// Example: primary or highlight or light-background
+$primary-colors: (
+  'primary': '#black',
+  'primary-100': '#light-green',
+  'primary-200': '#dark-green',
+);
+
+$secondary-colors: (
+  'secondary': '#blue',
+  'secondary-100': '#light-blue',
+  'secondary-200': '#dark-blue',
+);
+
+$text-colors: (
+  'light': '#white',
+  'text': '#dark-grey',
+  'link': '#primary',
+  'link-hover': '#primary-100'
+);
+
+$button-colors: (
+  'button': '#dark-grey',
+  'button-hover': '#dark-grey',
+  'button-secondary': '#secondary',
+  'button-secondary-hover': '#black',
+  'button-disable': '#grey'
+);
+
+// Merge everything into the main $colors map…
+@include add-colors(
+  $colors,
+  $primary-colors,
+  $secondary-colors,
+  $text-colors,
+  $button-colors
+);
+
+// Example of usage
+// .example {
+//   color: color('grey');
+//   background-color: color('light-grey');
+// }

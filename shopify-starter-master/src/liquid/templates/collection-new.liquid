@@ -1,0 +1,92 @@
+{% comment %}
+  This page represents the /collections/* and /collections/all/* pages.
+{% endcomment %}
+
+{% section 'hero-collection' %}
+
+<section class="products-collection">
+  <div class="container">
+    {% paginate collection.products by 8 %}
+        {% for product in collection.products %}
+          {% cycle '<div class="grid product-grid">', '', '', '' %}
+           {% include 'product-thumbnail' %}
+           {% cycle '', '', '','<div class="tab-content"></div>' %}
+          {% cycle '', '', '', '</div>' %}
+       {% endfor %}
+     
+      
+    {% endpaginate %}
+  </div>
+  </div>
+
+
+  <script>
+
+    var products = [
+    {% for product in collection.products %}
+          {
+              productTitle: "{{ product.title }}",
+              productImageUrl : "{{ product.featured_image | img_url: 'medium' }}",
+              productPrice : "{{ product.price | money }}",
+              productVariantId : "{{ product.variants.first.id }}",
+              productUrl: "{{ product.url }}"
+          },
+      {% endfor %}
+    ]
+
+    function handle(event) {
+      var parent = this.closest('.product-grid');
+      var ins = Number(this.dataset.index);
+      var createElement = `
+        <div class="product__image">
+            <a href="${products[ins].productUrl}">
+                <img src="${products[ins].productImageUrl}" class="image" />
+            </a>
+        </div>
+        <div class="product__details">
+                <div class="product__info">
+                    <h4 class="product__title">${products[ins].productTitle}</h4>
+                    <h4 class="product__price">${products[ins].productPrice}</h4>
+                </div>
+                <div class="product__form">
+                    
+                    <div class="addToCart">
+                        <button type="button" data-cart-add="${products[ins].productVariantId}" class="btn btn-primary">Add to Cart </button>
+                    </div>
+                </div>
+         </div>
+      `
+      parent.lastElementChild.innerHTML = createElement;
+      console.log(parent.lastElementChild);
+      console.log(parent.lastChild);
+    } 
+    
+    
+    
+    document.querySelectorAll('.product-image').forEach(
+      function (btn) {
+        btn.addEventListener('click', handle );
+      }
+    );
+    
+  </script>
+
+
+
+{%- comment -%}
+{% for product in collection.products %}
+            
+           {% if forloop.first %}
+                <div class="grid product-grid">
+               {% elsif forloop.index == 5 %}
+                </div>
+                <div class="grid product-grid">
+           {% endif %}
+
+           {% include 'product-thumbnail' %}
+
+           {% if forloop.last %}
+              </div>
+           {% endif %}
+       {% endfor %}
+{%- endcomment -%}
